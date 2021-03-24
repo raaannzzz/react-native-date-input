@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   DatePickerAndroid,
@@ -11,16 +11,17 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
+} from "react-native";
+import { Input, Icon } from "react-native-elements";
 
-import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
-import { getBottomSpace } from 'react-native-iphone-x-helper';
-import dayjs from 'dayjs';
+import { AppearanceProvider, useColorScheme } from "react-native-appearance";
+import { getBottomSpace } from "react-native-iphone-x-helper";
+import dayjs from "dayjs";
 
 export default ({
   inputProps = {},
-  dateFormat = 'YYYY-MM-DD',
-  defaultValue = '',
+  dateFormat = "YYYY-MM-DD",
+  defaultValue = "",
   defaultDate = new Date(),
   minimumDate = null,
   maximumDate = null,
@@ -30,7 +31,7 @@ export default ({
   const [date, setDate] = React.useState(defaultDate);
   const [value, setValue] = React.useState(defaultValue);
   const [visible, setVisible] = React.useState(false);
-  const ANDROID = Platform.OS === 'android';
+  const ANDROID = Platform.OS === "android";
 
   React.useEffect(() => {
     setValue(defaultValue);
@@ -44,15 +45,15 @@ export default ({
         date,
         minDate: minimumDate,
         maxDate: maximumDate,
-        mode: 'calendar',
+        mode: "calendar",
       });
 
       if (action === DatePickerAndroid.dismissedAction) {
         return;
       }
 
-      month = ('0' + (month + 1)).slice(-2);
-      day = ('0' + day).slice(-2);
+      month = ("0" + (month + 1)).slice(-2);
+      day = ("0" + day).slice(-2);
 
       const selected = new Date(`${year}-${month}-${day}`);
       onDateChange(selected);
@@ -87,11 +88,24 @@ export default ({
   const renderInput = () => {
     return (
       <TouchableOpacity onPress={open} activeOpacity={1}>
-        <TextInput
+        <Input
+          placeholder="Birthdate"
+          leftIcon={
+            <Icon
+              name="cake"
+              size={24}
+              color="white"
+              type="entypo"
+              containerStyle={{ paddingRight: 10 }}
+            />
+          }
+          containerStyle={{ marginTop: 5 }}
+          // onChangeText={txt => setPPIAdd(txt)}
+          placeholderTextColor="#fff"
           {...inputProps}
           value={value}
           editable={false}
-          pointerEvents={'none'}
+          pointerEvents={"none"}
         />
       </TouchableOpacity>
     );
@@ -113,26 +127,26 @@ export default ({
         ...StyleSheet.absoluteFill,
       },
       datePicker: {
-        backgroundColor: scheme === 'dark' ? 'black' : 'white',
+        backgroundColor: scheme === "dark" ? "black" : "white",
         ...StyleSheet.absoluteFill,
-        top: 'auto',
+        top: "auto",
         paddingBottom: getBottomSpace(),
       },
       bar: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
+        flexDirection: "row",
+        justifyContent: "flex-end",
         backgroundColor:
-          scheme === 'dark'
-            ? 'rgba(255, 255, 255, 0.1)'
-            : 'rgba(0, 0, 0, 0.03)',
+          scheme === "dark"
+            ? "rgba(255, 255, 255, 0.1)"
+            : "rgba(0, 0, 0, 0.03)",
         height: 44,
       },
       done: {
         paddingHorizontal: 17.5,
-        fontFamily: 'System',
+        fontFamily: "System",
         fontSize: 15,
-        color: scheme === 'dark' ? 'white' : '#147efb',
-        fontWeight: '700',
+        color: scheme === "dark" ? "white" : "#147efb",
+        fontWeight: "700",
         lineHeight: 44,
       },
     });
@@ -142,7 +156,7 @@ export default ({
         style={styles.modal}
         visible={visible}
         transparent
-        animationType={'slide'}
+        animationType={"slide"}
         onRequestClose={close}
       >
         <TouchableOpacity style={styles.background} onPress={close}>
@@ -161,7 +175,7 @@ export default ({
             date={date}
             minimumDate={minimumDate}
             maximumDate={maximumDate}
-            mode={'date'}
+            mode={"date"}
             onDateChange={onDateChange}
           />
         </View>
