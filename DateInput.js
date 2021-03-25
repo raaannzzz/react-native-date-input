@@ -27,6 +27,8 @@ export default ({
   maximumDate = null,
   handleChange,
   onRef,
+  iconType,
+  iconName,
 }) => {
   const [date, setDate] = React.useState(defaultDate);
   const [value, setValue] = React.useState(defaultValue);
@@ -92,10 +94,10 @@ export default ({
           placeholder="Birthdate"
           leftIcon={
             <Icon
-              name="cake"
+              name={iconName ? iconName : "cake"}
               size={24}
               color="white"
-              type="entypo"
+              type={iconType ? iconType : "entypo"}
               containerStyle={{ paddingRight: 10 }}
             />
           }
