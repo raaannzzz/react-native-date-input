@@ -29,6 +29,7 @@ export default ({
   onRef,
   iconType,
   iconName,
+  editMode
 }) => {
   const [date, setDate] = React.useState(defaultDate);
   const [value, setValue] = React.useState(defaultValue);
@@ -89,7 +90,7 @@ export default ({
 
   const renderInput = () => {
     return (
-      <TouchableOpacity onPress={open} activeOpacity={1}>
+      <TouchableOpacity onPress={open} activeOpacity={1} disabled={editMode === true? false:true} >
         <Input
           placeholder="Birthdate"
           leftIcon={
