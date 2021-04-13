@@ -29,7 +29,8 @@ export default ({
   onRef,
   iconType,
   iconName,
-  editMode
+  editMode,
+  myColor
 }) => {
   const [date, setDate] = React.useState(defaultDate);
   const [value, setValue] = React.useState(defaultValue);
@@ -97,14 +98,14 @@ export default ({
             <Icon
               name={iconName ? iconName : "cake"}
               size={24}
-              color="white"
+              color={myColor?myColor:"white"}
               type={iconType ? iconType : "entypo"}
               containerStyle={{ paddingRight: 10 }}
             />
           }
           containerStyle={{ marginTop: 5 }}
           // onChangeText={txt => setPPIAdd(txt)}
-          placeholderTextColor="#fff"
+          placeholderTextColor={myColor?myColor:"white"}
           {...inputProps}
           value={value}
           editable={false}
