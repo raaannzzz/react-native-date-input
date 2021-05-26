@@ -97,7 +97,7 @@ export default ({
         disabled={editMode === true ? false : true}
       >
         <Input
-          placeholder="Birthdate"
+          placeholder=""
           leftIcon={
             iconName ? (
               <Icon
