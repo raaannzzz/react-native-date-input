@@ -30,7 +30,7 @@ export default ({
   iconType,
   iconName,
   editMode,
-  myColor
+  myColor,
 }) => {
   const [date, setDate] = React.useState(defaultDate);
   const [value, setValue] = React.useState(defaultValue);
@@ -91,21 +91,27 @@ export default ({
 
   const renderInput = () => {
     return (
-      <TouchableOpacity onPress={open} activeOpacity={1} disabled={editMode === true? false:true} >
+      <TouchableOpacity
+        onPress={open}
+        activeOpacity={1}
+        disabled={editMode === true ? false : true}
+      >
         <Input
           placeholder="Birthdate"
           leftIcon={
-            <Icon
-              name={iconName ? iconName : "cake"}
-              size={24}
-              color={myColor?myColor:"white"}
-              type={iconType ? iconType : "entypo"}
-              containerStyle={{ paddingRight: 10 }}
-            />
+            iconName ? (
+              <Icon
+                name={iconName}
+                size={24}
+                color={myColor ? myColor : "white"}
+                type={iconType ? iconType : "entypo"}
+                containerStyle={{ paddingRight: 10 }}
+              />
+            ) : null
           }
           containerStyle={{ marginTop: 5 }}
           // onChangeText={txt => setPPIAdd(txt)}
-          placeholderTextColor={myColor?myColor:"white"}
+          placeholderTextColor={myColor ? myColor : "white"}
           {...inputProps}
           value={value}
           editable={false}
