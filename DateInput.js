@@ -13,6 +13,7 @@ import {
   View,
 } from "react-native";
 import { Input, Icon } from "react-native-elements";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import { getBottomSpace } from "react-native-iphone-x-helper";
@@ -44,26 +45,28 @@ export default ({
   const open = async () => {
     Keyboard.dismiss();
 
-    if (ANDROID) {
-      let { action, year, month, day } = await DatePickerAndroid.open({
-        date,
-        minDate: minimumDate,
-        maxDate: maximumDate,
-        mode: "calendar",
-      });
+    console.log('nargrun')
 
-      if (action === DatePickerAndroid.dismissedAction) {
-        return;
-      }
+    // if (ANDROID) {
+    //   let { action, year, month, day } = await DatePickerAndroid.open({
+    //     date,
+    //     minDate: minimumDate,
+    //     maxDate: maximumDate,
+    //     mode: "calendar",
+    //   });
 
-      month = ("0" + (month + 1)).slice(-2);
-      day = ("0" + day).slice(-2);
+    //   if (action === DatePickerAndroid.dismissedAction) {
+    //     return;
+    //   }
 
-      const selected = new Date(`${year}-${month}-${day}`);
-      onDateChange(selected);
+    //   month = ("0" + (month + 1)).slice(-2);
+    //   day = ("0" + day).slice(-2);
 
-      return;
-    }
+    //   const selected = new Date(`${year}-${month}-${day}`);
+    //   onDateChange(selected);
+
+    //   return;
+    // }
 
     setVisible(true);
   };
@@ -122,9 +125,9 @@ export default ({
   };
 
   const renderDatePicker = () => {
-    if (ANDROID) {
-      return;
-    }
+    // if (ANDROID) {
+    //   return;
+    // }
 
     const scheme = useColorScheme();
 
@@ -180,14 +183,28 @@ export default ({
             </TouchableOpacity>
           </View>
 
-          <DatePickerIOS
-            initialDate={defaultDate}
-            date={date}
-            minimumDate={minimumDate}
-            maximumDate={maximumDate}
-            mode={"date"}
-            onDateChange={onDateChange}
-          />
+         
+
+{ANDROID ? (
+   <DateTimePickerModal
+   date={date}
+   isVisible={true}
+   mode="date"
+   minimumDate={minimumDate}
+  maximumDate={maximumDate}
+  onConfirm={onDateChange}
+  onCancel={close}
+ />
+):(
+  <DatePickerIOS
+  initialDate={defaultDate}
+  date={date}
+  minimumDate={minimumDate}
+  maximumDate={maximumDate}
+  mode={"date"}
+  onDateChange={onDateChange}
+/>
+)}
         </View>
       </Modal>
     );
