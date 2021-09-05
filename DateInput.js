@@ -45,7 +45,7 @@ export default ({
   const open = async () => {
     Keyboard.dismiss();
 
-    console.log('nargrun')
+    console.log("nargrun");
 
     // if (ANDROID) {
     //   let { action, year, month, day } = await DatePickerAndroid.open({
@@ -76,6 +76,7 @@ export default ({
   };
 
   const onDateChange = (date) => {
+    setVisible(false);
     const formattedDate = dayjs(date).format(dateFormat);
 
     setDate(date);
@@ -172,7 +173,10 @@ export default ({
         animationType={"slide"}
         onRequestClose={close}
       >
-        <TouchableOpacity style={styles.background} onPress={close}>
+        <TouchableOpacity
+          style={styles.background}
+          onPress={ANDROID ? () => {} : close}
+        >
           <></>
         </TouchableOpacity>
 
@@ -183,28 +187,26 @@ export default ({
             </TouchableOpacity>
           </View>
 
-         
-
-{ANDROID ? (
-   <DateTimePickerModal
-   date={date}
-   isVisible={true}
-   mode="date"
-   minimumDate={minimumDate}
-  maximumDate={maximumDate}
-  onConfirm={onDateChange}
-  onCancel={close}
- />
-):(
-  <DatePickerIOS
-  initialDate={defaultDate}
-  date={date}
-  minimumDate={minimumDate}
-  maximumDate={maximumDate}
-  mode={"date"}
-  onDateChange={onDateChange}
-/>
-)}
+          {ANDROID ? (
+            <DateTimePickerModal
+              date={date}
+              isVisible={true}
+              mode="date"
+              minimumDate={minimumDate}
+              maximumDate={maximumDate}
+              onConfirm={onDateChange}
+              onCancel={close}
+            />
+          ) : (
+            <DatePickerIOS
+              initialDate={defaultDate}
+              date={date}
+              minimumDate={minimumDate}
+              maximumDate={maximumDate}
+              mode={"date"}
+              onDateChange={onDateChange}
+            />
+          )}
         </View>
       </Modal>
     );
